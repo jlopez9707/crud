@@ -43,6 +43,40 @@ app.get("/getEmployees", function (req, res) {
   });
 });
 
+app.get("/getCustomers", function (req, res) {
+  sql.connect(config, function (err) {
+    if (err) console.log(err);
+
+    var request = new sql.Request();
+
+    request.query(
+      "select CustomerID, CompanyName, ContactName, ContactTitle, City, Country from Customers",
+      function (err, recordset) {
+        if (err) console.log(err);
+
+        res.send(recordset);
+      }
+    );
+  });
+});
+
+app.get("/getShippers", function (req, res) {
+  sql.connect(config, function (err) {
+    if (err) console.log(err);
+
+    var request = new sql.Request();
+
+    request.query(
+      "select ShipperID, CompanyName, Phone from Shippers",
+      function (err, recordset) {
+        if (err) console.log(err);
+
+        res.send(recordset);
+      }
+    );
+  });
+});
+
 // //Metodo para obtener la lista de usuarios en mysql
 // app.get("/getUsers", (req, res) => {
 //   db.query("SELECT * FROM users", (err, result) => {
